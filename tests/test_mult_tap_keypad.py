@@ -1,33 +1,18 @@
 import pytest
-
 from src.mult_tap_keypad import count_button_presses
 
 
-def test_Return3IfRPassedIn():
-    result = count_button_presses("R")
-    assert result == 3
-
-
-def test_Return4If3PassedIn():
-    result = count_button_presses("3")
-    assert result == 4
-
-
-def test_Return6IfABCPassedIn():
-    result = count_button_presses("ABC")
-    assert result == 6
-
-
-def test_Return47IfABCPassedIn():
-    result = count_button_presses("WHERE DO U WANT 2 MEET L8R")
-    assert result == 47
-
-
-def test_Return6IfAbcPassedIn():
-    result = count_button_presses("Abc")
-    assert result == 6
-
-
-def test_Return8IfPassedIn():
-    result = count_button_presses("A*b#c")
-    assert result == 8
+@pytest.mark.parametrize(
+    "input_str, expected_presses",
+    [
+        ("R", 3),
+        ("3", 4),
+        ("ABC", 6),
+        ("WHERE DO U WANT 2 MEET L8R", 47),
+        ("Abc", 6),
+        ("A*b#c", 8),
+    ],
+)
+def test_count_button_presses(input_str, expected_presses):
+    result = count_button_presses(input_str)
+    assert result == expected_presses
