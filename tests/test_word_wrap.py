@@ -5,67 +5,17 @@ from src.word_wrap import Wrapper
 def wrapper():
     return Wrapper()
 
-def test_case_3(wrapper):
-    string = ""
-    col_num = 1
-    expected = ""
+@pytest.mark.parametrize("string, col_num, expected", [
+    ("", 1, ""),
+    ("word", 10, "word"),
+    ("word", 2, "wo\nrd"),
+    ("abcdefghij", 3, "abc\ndef\nghi\nj"),
+    ("word word", 5, "word\nword"),
+    ("word word", 6, "word\nword"),
+    ("word word", 3, "wor\nd\nwor\nd"),
+    ("word word", 4, "word\nword"),
+    ("word word word", 11, "word word\nword"),
+])
+def test_wrapper_wrap(wrapper, string, col_num, expected):
     result = wrapper.wrap(string, col_num)
     assert result == expected
-
-def test_case_4(wrapper):
-    string = "word"
-    col_num = 10
-    expected = "word"
-    result = wrapper.wrap(string, col_num)
-    assert result == expected
-
-def test_case_5(wrapper):
-    string = "word"
-    col_num = 2
-    expected = "wo\nrd"
-    result = wrapper.wrap(string, col_num)
-    assert result == expected
-
-def test_case_6(wrapper):
-    string = "abcdefghij"
-    col_num = 3
-    expected = "abc\ndef\nghi\nj"
-    result = wrapper.wrap(string, col_num)
-    assert result == expected
-
-def test_case_7(wrapper):
-    string = "word word"
-    col_num = 5
-    expected = "word\nword"
-    result = wrapper.wrap(string, col_num)
-    assert result == expected
-
-# def test_case_8(wrapper):
-#     string = "word word"
-#     col_num = 6
-#     expected = "word\nword"
-#     result = wrapper.wrap(string, col_num)
-#     assert result == expected
-
-
-# def test_case_9(wrapper):
-#     string = "word word"
-#     col_num = 3
-#     expected = "wor\nd\nwor\nd"
-#     result = wrapper.wrap(string, col_num)
-#     assert result == expected
-
-# def test_case_10(wrapper):
-#     string = "word word"
-#     col_num = 4
-#     expected = "word\nword"
-#     result = wrapper.wrap(string, col_num)
-#     assert result == expected
-
-# def test_case_(wrapper):
-#     string = "word word word"
-#     col_num = 11
-#     expected = "word word\nword"
-#     result = wrapper.wrap(string, col_num)
-#     assert result == expected
-
